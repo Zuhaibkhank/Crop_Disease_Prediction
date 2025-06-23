@@ -1,0 +1,6 @@
+temperature,humidity,moisture,nitrogen,potassium,phosphorus,label
+30,70,40,90,40,30,Healthy
+35,75,45,85,35,28,Healthy
+28,65,38,50,20,15,Diseased
+33,80,60,25,10,5,Diseased
+31,72,42,60,30,20,Healthy
