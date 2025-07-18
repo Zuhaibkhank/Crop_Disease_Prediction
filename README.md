@@ -53,4 +53,18 @@ Agricultural productivity heavily depends on crop health. Manual disease diagnos
 ---
 
 ## 📁 Project Structure
-
+Crop_Disease_Prediction/
+├── app.py # Flask server
+├── train_model.py # Trains and saves the ML model
+├── requirements.txt # All required Python packages
+├── model/
+│ └── crop_model.pkl # Trained ML model
+├── dataset/
+│ └── crop_disease_data.csv # Crop dataset
+├── static/
+│ ├── crop.jpg # Healthy crop image
+│ └── diseased_crop.jpg # Diseased crop image
+├── templates/
+│ ├── index.html # Input form
+│ └── result.html # Prediction result page
+└── README.md # This file
