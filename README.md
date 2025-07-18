@@ -1,42 +1,56 @@
 # 🌾 Crop Disease Prediction System
 
-A machine learning web application that predicts whether a crop is **healthy or diseased** based on soil and environmental conditions.
+A full-stack machine learning web application that predicts whether a crop is **Healthy** or affected by a specific **disease** (like Leaf Blight, Rust, Bacterial Wilt, etc.) based on soil and environmental parameters. This system aims to support farmers in identifying crop health early and taking preventive or curative actions.
 
-## 🧪 Tech Stack
-- Python
-- Flask
-- Pandas, NumPy
-- scikit-learn
-- HTML & CSS (Frontend)
+---
+
+## 🧠 Motivation
+
+Agricultural productivity heavily depends on crop health. Manual disease diagnosis is time-consuming and error-prone. This project helps automate crop health prediction using machine learning — enabling farmers to get accurate, instant insights via a user-friendly web interface.
+
+---
 
 ## 🚀 Features
-- User form to input:
-  - Temperature
-  - Humidity
-  - Moisture
-  - Nitrogen, Phosphorus, Potassium
-- ML model predicts crop health
-- Clean and responsive UI
-- Fast local prediction using trained `.pkl` model
 
-## 📁 Project Structure
+- 🌡️ Input form to collect environmental and soil data:
+  - Temperature (°C)
+  - Humidity (%)
+  - Moisture (%)
+  - Nitrogen, Phosphorus, Potassium (NPK mg/kg)
+- ⚙️ Backend ML model (RandomForestClassifier) trained on synthetic crop disease dataset.
+- 📊 Real-time prediction using `.pkl` model.
+- 🌐 Result opens in a **new tab** with:
+  - Detected disease name (if any)
+  - Symptoms and treatments
+  - Prevention tips
+  - Crop image based on result (Healthy or Diseased)
+- 💻 Clean, animated, and responsive frontend (HTML/CSS)
 
+---
+
+## 🧪 Tech Stack
+
+- **Frontend**: HTML5, CSS3 (custom animation and styling)
+- **Backend**: Python, Flask
+- **ML Model**: scikit-learn (`RandomForestClassifier`)
+- **Libraries**: NumPy, Pandas, pickle
+- **Hosting**: [Render.com](https://render.com) (Free tier)
+
+---
 
 ## 🧠 How It Works
 
-1. **train_model.py**: Trains a RandomForestClassifier using crop data.
-2. Saves model to `model/crop_model.pkl`
-3. **app.py**: Flask web server loads the model and serves predictions via form.
-4. Predictions rendered on same HTML page.
+1. **User** enters environmental and soil parameters in a form.
+2. Data is passed to a trained machine learning model.
+3. Model classifies the crop as:
+   - `Healthy`
+   - or a type of disease like `Rust`, `Leaf Blight`, `Bacterial Wilt`, etc.
+4. Results open in a new page (`/result`) with:
+   - Detailed disease info
+   - Treatment suggestions
+   - Crop image (based on status)
 
-## 🔧 Run Locally
+---
 
-```bash
-# 1. Install dependencies
-pip install -r requirements.txt
+## 📁 Project Structure
 
-# 2. Train the ML model
-python train_model.py
-
-# 3. Start Flask App
-python app.py

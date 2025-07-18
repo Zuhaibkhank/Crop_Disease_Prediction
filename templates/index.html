@@ -1,22 +1,222 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>Crop Disease Predictor</title>
-</head>
-<body>
-    <h2>Crop Disease Prediction</h2>
-    <form method="POST" action="/predict">
-        Temperature: <input type="text" name="temperature" required><br>
-        Humidity: <input type="text" name="humidity" required><br>
-        Moisture: <input type="text" name="moisture" required><br>
-        Nitrogen: <input type="text" name="nitrogen" required><br>
-        Potassium: <input type="text" name="potassium" required><br>
-        Phosphorus: <input type="text" name="phosphorus" required><br><br>
-        <input type="submit" value="Predict">
-    </form>
+<html lang="en">
 
-    {% if prediction %}
-        <h3>Prediction: {{ prediction }}</h3>
-    {% endif %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Disease Predictor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 60px auto;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #00d9ff;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 8px;
+            border: none;
+            background: #ffffff10;
+            color: #fff;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            margin-top: 25px;
+            background: #00d9ff;
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background: #00aacc;
+        }
+
+        .prediction {
+            margin-top: 25px;
+            padding: 15px;
+            background: #ffffff15;
+            border-left: 5px solid #00d9ff;
+            border-radius: 10px;
+        }
+
+        .image-section {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .image-section img {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 10px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>🌿 Crop Disease Predictor</h2>
+        <form method="POST" action="/predict">
+            <label for="temperature">🌡️ Temperature</label>
+            <input type="text" name="temperature" required>
+
+            <label for="humidity">💧 Humidity</label>
+            <input type="text" name="humidity" required>
+
+            <label for="moisture">🌫️ Moisture</label>
+            <input type="text" name="moisture" required>
+
+            <label for="nitrogen">🧪 Nitrogen</label>
+            <input type="text" name="nitrogen" required>
+
+            <label for="potassium">🧪 Potassium</label>
+            <input type="text" name="potassium" required>
+
+            <label for="phosphorus">🧪 Phosphorus</label>
+            <input type="text" name="phosphorus" required>
+
+            <input type="submit" value="🔍 Predict">
+        </form>
+
+        {% if prediction %}
+        <div class="prediction">
+            {% if prediction == 'Healthy' %}
+            <h3 style="color: #00ff88;">✅ Your crop is Healthy!</h3>
+            <p>
+                <strong>Congratulations! 🌿</strong> Your crop is currently in good condition.
+                <br><br>
+                <strong>Maintenance Tips:</strong>
+            <ul>
+                <li>Ensure proper irrigation, avoid over/under watering.</li>
+                <li>Regularly test soil for pH and nutrient balance.</li>
+                <li>Apply compost or organic fertilizers periodically.</li>
+                <li>Watch out for early signs of pests or discoloration.</li>
+                <li>Practice crop rotation to maintain soil health.</li>
+            </ul>
+            <br>
+            <strong>Recommended Fertilizer Ratio (NPK):</strong> Balanced or 10-10-10
+            </p>
+
+            <div class="image-section">
+                <img src="{{ url_for('static', filename='crop.jpg') }}" alt="Crop Image">
+            </div>
+            {% else %}
+            <h3 style="color: #ff6b6b;">⚠️ Disease Detected: {{ prediction }}</h3>
+            <p>
+                <strong>Possible Disease:</strong> {{ prediction }}
+                <br><br>
+
+                {% if prediction == 'Leaf Blight' %}
+                <strong>Symptoms:</strong> Brown lesions, leaf spots, drying edges.
+                <br>
+                <strong>Treatment:</strong>
+            <ul>
+                <li>Spray with Copper-based fungicide or Mancozeb.</li>
+                <li>Remove and destroy infected leaves.</li>
+                <li>Avoid overhead watering.</li>
+            </ul>
+            <strong>Prevention:</strong> Maintain spacing, ensure air flow, and practice crop rotation.
+
+            {% elif prediction == 'Rust' %}
+            <strong>Symptoms:</strong> Orange-red spots on underside of leaves.
+            <br>
+            <strong>Treatment:</strong>
+            <ul>
+                <li>Use Sulfur or Neem oil sprays.</li>
+                <li>Apply fungicides like Propiconazole.</li>
+                <li>Water early in the day to allow leaves to dry.</li>
+            </ul>
+            <strong>Prevention:</strong> Remove weeds, clean tools, use resistant varieties.
+
+            {% elif prediction == 'Bacterial Wilt' %}
+            <strong>Symptoms:</strong> Sudden wilting of leaves, yellowing stems.
+            <br>
+            <strong>Treatment:</strong>
+            <ul>
+                <li>Remove and destroy affected plants.</li>
+                <li>Improve drainage and avoid water stagnation.</li>
+                <li>Use crop rotation with non-susceptible crops.</li>
+            </ul>
+            <strong>Prevention:</strong> Control soil-borne insects and use disease-free seeds.
+
+            {% else %}
+            <strong>General Symptoms:</strong> Poor leaf color, growth issues, abnormal spotting.
+            <br>
+            <strong>Suggested Actions:</strong>
+            <ul>
+                <li>Consult an agronomist or plant expert immediately.</li>
+                <li>Apply a broad-spectrum fungicide or pesticide.</li>
+                <li>Improve soil fertility and drainage.</li>
+            </ul>
+            <strong>Tip:</strong> Consider sending soil and leaf samples for lab testing.
+            {% endif %}
+            </p>
+            <div class="image-section">
+                <img src="{{ url_for('static', filename='diseased_crop.jpg') }}" alt="Diseased Crop Example"
+                    style="max-width: 100%; border-radius: 10px; margin-top: 10px;">
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+
+
+
+
+        <div class="footer">
+            Made with ❤️ for farmers | © 2025 Crop Disease Detector
+        </div>
+    </div>
 </body>
+
 </html>
